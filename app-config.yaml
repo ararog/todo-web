@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-web-config
+  namespace: default
+data:
+  DB_HOST: "todo-postgresql.default.svc.cluster.local"
+  DB_USER: "postgres"

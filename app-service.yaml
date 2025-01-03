@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-web-svc
+  labels:
+    app: todo-web
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+  selector:
+    app: todo-web
+
+---    
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-web-blue-svc
+  labels:
+    app: todo-web
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+  selector:
+    app: todo-web

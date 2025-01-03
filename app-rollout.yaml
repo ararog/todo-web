@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: todo-web-rollout
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: todo-web
+  template:
+    metadata:
+      labels:
+        app: todo-web
+    spec:
+      containers:
+      - name: todo-web-container
+        image: registry.local:5000/training/todo-web:latest
+        env:
+          - name: DB_HOST
+            valueFrom: 
+              configMapKeyRef:
+                name: todo-web-config
+                key: DB_HOST          
+          - name: DB_USER
+            valueFrom: 
+              configMapKeyRef:
+                name: todo-web-config
+                key: DB_USER          
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: todo-web-secret
+                key: DB_PASSWORD                
+        ports:
+        - containerPort: 80
+  strategy:
+    blueGreen: 
+      activeService: todo-web-svc
+      previewService: todo-web-blue-svc
+      autoPromotionEnabled: true
+      autoPromotionSeconds: 30
