@@ -14,12 +14,12 @@ RUN corepack enable
 COPY . .
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --no-frozen-lockfile
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm install --no-frozen-lockfile
-RUN rm  -rf dist  && \
+RUN rm  -rf build  && \
   rm -rf release  && \ 
   mkdir release  && \
   mv api.env .env && \
-  pnpm build && \
-  tar czvf release/app.tar.gz -C dist/ .
+  pnpm run build && \
+  tar czvf release/app.tar.gz -C build/ .
 
 FROM builder AS test
 
