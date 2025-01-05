@@ -1,11 +1,27 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { NavBar } from "../components/navigation/desktop/nav-bar";
 import { MobileNavBar } from "../components/navigation/mobile/mobile-nav-bar";
 import { PageLayout } from "../components/page-layout";
+import { create } from "apisauce";
 
 export const CallbackPage: React.FC = () => {
   const { error } = useAuth0();
+
+  useEffect(() => {
+    const auth0Api = create({ baseURL: `https://${process.env.REACT_APP_AUTH0_DOMAIN}`});
+    auth0Api.post('/oauth/token', {
+      grant_type: 'client_credentials',
+      client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
+      client_secret: process.env.REACT_APP_AUTH0_CLIENT_SECRET,
+    }, {headers: {
+      'content-type': 'application/x-www-form-urlencoded'
+    }}).then((response: any) => {
+      const {data} = response;
+      if (data)
+        console.log(data.access_token)
+    })
+  }, [])
 
   if (error) {
     return (
