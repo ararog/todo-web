@@ -7,9 +7,9 @@ import useSWR from "swr";
 export default function Todo () {
   const token = useTodoStore(state => state.accessToken);
   const [description, setDescription] = useState("");
-  const {data: items, error, isLoading} = useSWR(['/todo', {
+  const {data: items, isLoading} = useSWR(['/todo', {
     headers: {
-      'Authentication': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`
     }
   }], fetcher<TodoItem>);
 

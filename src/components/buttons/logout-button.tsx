@@ -1,15 +1,11 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
+import { useTodoStore } from "src/states/todo";
 
 export const LogoutButton: React.FC = () => {
-  const { logout } = useAuth0();
-
+  const setAccessToken = useTodoStore(state => state.setAccessToken);
   const handleLogout = () => {
-    logout({
-      logoutParams: {
-        returnTo: window.location.origin,
-      },
-    });
+    setAccessToken(undefined);
+    window.location.replace(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/v2/logout?client_id=${process.env.REACT_APP_AUTH0_CLIENT_ID}&returnTo=http://localhost:3000`);
   };
 
   return (

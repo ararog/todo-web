@@ -1,18 +1,10 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 export const LoginButton: React.FC = () => {
-  const { loginWithRedirect } = useAuth0();
-
+  const history = useHistory();
   const handleLogin = async () => {
-    await loginWithRedirect({
-      appState: {
-        returnTo: "/profile",
-      },
-      authorizationParams: {
-        prompt: "login",
-      },
-    });
+    window.location.replace(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/authorize?response_type=token&client_id=${process.env.REACT_APP_AUTH0_CLIENT_ID}&redirect_uri=http://localhost:3000/&audience=https://api.todo.training`);
   };
 
   return (
