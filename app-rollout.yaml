@@ -16,22 +16,6 @@ spec:
       containers:
       - name: todo-web-container
         image: registry.local:5000/training/todo-web:latest
-        env:
-          - name: DB_HOST
-            valueFrom: 
-              configMapKeyRef:
-                name: todo-web-config
-                key: DB_HOST          
-          - name: DB_USER
-            valueFrom: 
-              configMapKeyRef:
-                name: todo-web-config
-                key: DB_USER          
-          - name: DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: todo-web-secret
-                key: DB_PASSWORD                
         ports:
         - containerPort: 80
   strategy:
