@@ -1,13 +1,7 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
 import { PageLayout } from "../components/page-layout";
 
 export const ProfilePage: React.FC = () => {
-  const { user } = useAuth0();
-
-  if (!user) {
-    return null;
-  }
 
   return (
     <PageLayout>
@@ -27,6 +21,7 @@ export const ProfilePage: React.FC = () => {
           </p>
           <div className="profile-grid">
             <div className="profile__header">
+              {/*
               <img
                 src={user.picture}
                 alt="Profile"
@@ -36,6 +31,7 @@ export const ProfilePage: React.FC = () => {
                 <h2 className="profile__title">{user.name}</h2>
                 <span className="profile__description">{user.email}</span>
               </div>
+              */}
             </div>
           </div>
         </div>
