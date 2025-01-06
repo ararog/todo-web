@@ -5,7 +5,7 @@ pipeline {
     agent any
     environment {
         BASE_IMAGE = "registry.local:5000/training/todo-web"
-        CONTAINER = "todo-api-container" 
+        CONTAINER = "todo-web-container" 
     }        
     stages {
         stage('Prepare') {
@@ -63,7 +63,7 @@ pipeline {
                     sh "./kubectl apply -f app-service.yaml -n default"
                     sh "./kubectl apply -f app-scaler.yaml -n default"
                     sh "./kubectl apply -f app-rollout.yaml -n default"
-                    sh "PATH=. ./kubectl argo rollouts set image todo-api-rollout ${env.CONTAINER}=${env.BASE_IMAGE}:${dockerImageTag} -n default"
+                    sh "PATH=. ./kubectl argo rollouts set image todo-web-rollout ${env.CONTAINER}=${env.BASE_IMAGE}:${dockerImageTag} -n default"
                 }
             }
         }        
