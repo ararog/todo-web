@@ -8,7 +8,7 @@ interface Auth0ProviderWithConfigProps {
 
 export const Auth0ProviderWithHistory = ({
   children,
-}: PropsWithChildren<Auth0ProviderWithConfigProps>): JSX.Element | null => {
+}: PropsWithChildren<Auth0ProviderWithConfigProps>): React.JSX.Element | null => {
   const history = useHistory();
 
   const domain = process.env.REACT_APP_AUTH0_DOMAIN;

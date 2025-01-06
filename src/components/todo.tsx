@@ -1,13 +1,15 @@
 import { useState } from "react"
 import { fetcher } from "src/helpers/api";
 import { TodoItem } from "src/models/TodoItem";
+import { useTodoStore } from "src/states/todo";
 import useSWR from "swr";
 
 export default function Todo () {
+  const token = useTodoStore(state => state.accessToken);
   const [description, setDescription] = useState("");
   const {data: items, error, isLoading} = useSWR(['/todo', {
     headers: {
-      'Authentication': `Bearer`
+      'Authentication': `Bearer ${token}`
     }
   }], fetcher<TodoItem>);
 
