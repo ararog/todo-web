@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { PageLayout } from "../components/page-layout";
 import Todo from "src/components/todo";
 import { useTodoStore } from "src/states/todo";
@@ -18,14 +18,16 @@ export const HomePage: React.FC = () => {
 
   return (
     <PageLayout>
-          <div className="home_welcome">
-            {store.isAuthenticated ? 
-            <>
-              <Todo />
-            </> : 
-              <span className='home_title'>Please login to start adding your todo items.</span>
-            }
-          </div>
+      <div className="home_welcome">
+        {store.isAuthenticated ? 
+        <>
+          <Suspense fallback={<span className='home_title'>Loading...</span>}>
+            <Todo />
+          </Suspense>
+        </> : 
+          <span className='home_title'>Please login to start adding your todo items.</span>
+        }
+      </div>
     </PageLayout>
   );
 };
