@@ -7,7 +7,7 @@ export interface TodoState {
   todoId: number | null;
   todo?: TodoItem[];
   item?: TodoItem;
-  setAccessToken: (token?: string) => void;
+  setAuthenticated: (flag: boolean) => void;
   setTodo: (items?: TodoItem[]) => void;
 }
 
@@ -18,8 +18,8 @@ export const useTodoStore = create<TodoState>(set => ({
   todoId: null,
   todo: undefined,
   item: undefined,
-  setAccessToken: token => {
-    set({accessToken: token, isAuthenticated: token ? true : false });
+  setAuthenticated: (flag: boolean) => {
+    set({isAuthenticated: flag });
   },
   setTodo: (items?: TodoItem[]) => {
     set({todo: items});

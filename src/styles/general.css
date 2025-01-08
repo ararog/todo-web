@@ -163,7 +163,12 @@ code {
   font-size: large;
 }
 
+.todo_item_description {
+  font-size: large;  
+}
+
 .todo_input {
+  font-size: large;  
   height: 50px;
   width: 350px;
 }

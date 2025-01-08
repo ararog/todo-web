@@ -13,7 +13,10 @@ export const HomePage: React.FC = () => {
       acc[tokens[0]] = tokens[1];
       return acc;
     }, {})
-    store.setAccessToken(tokens.access_token);
+    if (tokens.access_token) {
+      localStorage.setItem("token", tokens.access_token);
+      store.setAuthenticated(true);
+    }
   }, []);
 
   return (

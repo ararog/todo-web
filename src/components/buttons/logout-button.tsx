@@ -2,9 +2,10 @@ import React from "react";
 import { useTodoStore } from "src/states/todo";
 
 export const LogoutButton: React.FC = () => {
-  const setAccessToken = useTodoStore(state => state.setAccessToken);
+  const setAuthenticated = useTodoStore(state => state.setAuthenticated);
   const handleLogout = () => {
-    setAccessToken(undefined);
+    localStorage.removeItem("token");
+    setAuthenticated(false);
     window.location.replace(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/v2/logout?client_id=${process.env.REACT_APP_AUTH0_CLIENT_ID}&returnTo=http://localhost:3000`);
   };
 

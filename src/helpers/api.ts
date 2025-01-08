@@ -1,11 +1,20 @@
 import {create} from 'apisauce';
 
-// define the api
-export const api = create({
+const api = create({
   baseURL: 'http://localhost:5202/api',
+})
+
+api.addRequestTransform(request => {
+  const token = localStorage.getItem('token');
+  if(request.headers && !request.headers["Authorization"]) {
+    request.headers["Authorization"] = `Bearer ${token}`;
+  }
 });
 
-export function fetcher<T>(params: any[]) {
-  const [url, config] = params
-  return api.get(url, "", config).then(response => response.data as T[]);
+async function fetcher<T>(path: string) {
+  const response = await api.get(path);
+  return response.data as T[];
 }
+
+export {api, fetcher};
+
