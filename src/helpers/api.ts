@@ -1,7 +1,7 @@
 import {create} from 'apisauce';
 
 const api = create({
-  baseURL: 'http://localhost:5202/api',
+  baseURL: process.env.REACT_APP_BASE_URL,
 })
 
 api.addRequestTransform(request => {

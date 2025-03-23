@@ -10,14 +10,20 @@ export default function Todo () {
   const {mutate} = useSWRConfig();
   const {data: items, isLoading} = useSWR('/todo', fetcher<TodoItem>);
 
-  const onCompletedClick = async (item?: TodoItem) => {
-    await api.put<TodoItem>(`/todo/${item?.id}`, {
-      description: item?.description,
-      completed: !item?.completed,
-      userId: item?.userId
-    });
 
-    mutate('/todo')
+  const onCompletedClick = (item: TodoItem) => {
+    mutate('/todo',  async (todo?:TodoItem[]) => {
+      await api.put<TodoItem>(`/todo/${item.id}`, {
+        description: item.description,
+        completed: !item.completed,
+        userId: item.userId
+      });
+
+      item.completed = !item.completed
+         
+      const filteredTodos = todo?.filter((i: TodoItem) => i.id !== item.id ) || []
+      return [...filteredTodos, item]
+    }, { revalidate: false })
   }
 
   const renderLoading = () => {

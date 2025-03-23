@@ -10,6 +10,7 @@ ARG SOURCE_DIR
 
 WORKDIR "$SOURCE_DIR"
 
+RUN npm install -g corepack@latest
 RUN corepack enable
 COPY . .
 RUN --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store pnpm fetch --no-frozen-lockfile

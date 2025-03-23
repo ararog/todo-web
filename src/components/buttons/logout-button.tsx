@@ -6,7 +6,7 @@ export const LogoutButton: React.FC = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setAuthenticated(false);
-    window.location.replace(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/v2/logout?client_id=${process.env.REACT_APP_AUTH0_CLIENT_ID}&returnTo=http://localhost:3000`);
+    window.location.replace(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/v2/logout?client_id=${process.env.REACT_APP_AUTH0_CLIENT_ID}&returnTo=${process.env.REACT_APP_AUTH0_CALLBACK_URL}`);
   };
 
   return (
